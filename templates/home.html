@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+
+<div id="daftar-kode">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div id="kode-tabel">
+                    <input type="text" class="form-control search mb-3" id="siswa-search" placeholder="Cari kode...">
+    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-dark text-center">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Kode</th>
+                                <th scope="col">Daerah</th>
+                                <th scope="col">Cakupan</th>
+                              </tr>
+                            </thead>
+                            <tbody class="list">
+                                {% for d in data %}
+                                <tr>
+                                <td class="nomor" scope="row">{{ loop.index }}.</td>
+                                <td class="kode"><strong>{{ d['kode'] }}</strong></td>
+                                <td class="daerah">{{ d['daerah'] }}</td>
+                                <td class="cakupan">
+                                    {% if d['cakupan'] is string %}
+                                    {{ d['cakupan'] }}
+                                    {% else %}
+                                    <ul>
+                                        {% for c in d['cakupan'] %}
+                                        <li>{{ c }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+
+                <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+                <script>
+                    var options = {
+                        valueNames: ["kode"]
+                    };
+                    var kodeList = new List("kode-tabel", options)
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
